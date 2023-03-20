@@ -4,14 +4,14 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/ctracer.h",
-                "${workspaceFolder}/ctracer.c"
+                "${workspaceFolder}/src/"
             ],
             "compilerPath": "/usr/local/bin/clang",
             "cStandard": "c11",
             "intelliSenseMode": "linux-clang-x64",
             "compilerArgs": [
                 "-std=c11",
+                "-I ./src",
                 "-lrt"
             ],
             "defines": [
