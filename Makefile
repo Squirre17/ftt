@@ -1,11 +1,11 @@
 CC      := gcc
-CFLAGS  := -Wall -Wextra -g -pg -Isrc $(@:.o=.d)
+CFLAGS  := -Wall -Wextra -g -Isrc $(@:.o=.d)
 LDFLAGS := $(CFLAGS) --static
 OBJ_DIR := build
 
-CFLAGS   += -mfentry
-ASFLAGS  += -mfentry
-LDCFLAGS += -mfentry -lpthread
+CFLAGS  += -mfentry
+ASFLAGS += -mfentry
+LDFLAGS += -mfentry -lpthread
 
 TRACER_SOURCES     := $(wildcard src/tracer.c)
 TRAMPOLINE_SOURCES := $(wildcard src/trampoline.S)
@@ -34,7 +34,7 @@ $(TRAMPOLINE_OBJECT): $(TRAMPOLINE_SOURCES)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(EXECUTABLE): $(OBJECTS) $(TRACER_OBJECT) $(TRAMPOLINE_OBJECT)
-	$(CC) $(LDFLAGS) $^ -o $@ -lpthread
+	$(CC)  $^ -o $@ $(LDFLAGS)
 
 clean:
 	rm -rf $(OBJ_DIR)

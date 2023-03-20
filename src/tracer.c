@@ -23,14 +23,14 @@ void __trace_dump() {
     }
 
     for(u32 i = 0;i < cur; i++) {
-        fprintf(fp ,"%#018lx %#018lx %#018lx %#018lx %#018lx %#018lx %#018lx\n",
+
+        fprintf(fp ,"%#018lx %#018lx %#018lx %#018lx %#018lx %#018lx\n",
             infos[i].addr      ,
             infos[i].prev_addr ,
             infos[i].arg1      ,
             infos[i].arg2      ,
             infos[i].arg3      ,
-            infos[i].arg4      ,
-            infos[i].ts
+            infos[i].arg4
         );
     }
 
@@ -43,7 +43,7 @@ void __trace_log(u64 addr, u64 prev_addr, u64 arg1, u64 arg2, u64 arg3, u64 arg4
     pthread_mutex_lock(&mutex);
 
     struct timespec ts;
-    clock_getres(CLOCK_MONOTONIC, &ts);
+    clock_gettime(CLOCK_MONOTONIC, &ts);
     
     infos[cur].addr      = addr;
     infos[cur].prev_addr = prev_addr;
@@ -51,7 +51,6 @@ void __trace_log(u64 addr, u64 prev_addr, u64 arg1, u64 arg2, u64 arg3, u64 arg4
     infos[cur].arg2      = arg2;
     infos[cur].arg3      = arg3;
     infos[cur].arg4      = arg4;
-    infos[cur].ts        = ts.tv_sec + 2208988800UL;
 
     cur++;
 
